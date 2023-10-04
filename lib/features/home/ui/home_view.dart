@@ -49,7 +49,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   }),
                 ],
                 title: const Text('Grocery Home'),
-
+              ),
+              body: const Center(
+                child: Text('Success'),
               ),
             );
           case HomeErrorState:
