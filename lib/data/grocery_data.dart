@@ -23,7 +23,7 @@ class GroceryData {
       'imageUrl': 'https://thumbs.dreamstime.com/b/bread-cut-14027607.jpg',
     },
     {
-      'id': '4',
+      'id': 4,
       'name': 'Brown Eggs',
       'description': 'Farm-fresh brown eggs',
       'price': 3.99,

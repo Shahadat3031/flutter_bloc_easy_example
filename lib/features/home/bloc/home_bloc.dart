@@ -1,18 +1,37 @@
-// 'Import' should be before 'part'
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_bloc_easy_example/data/grocery_data.dart';
+import 'package:flutter_bloc_easy_example/features/home/models/home_product_data_modle.dart';
 part 'home_event.dart';
 part 'home_state.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeBloc() : super(HomeInitial()) {
     //on This event <Event> pass this (State)state
-    on<HomeWishlistButtonNavigateEvent>(homeWishlistButtonNavigateEvent);
-    on<HomeCartButtonNavigateEvent>(homeCartButtonNavigateEvent);
+    on<HomeInitialEvent>(homeInitialEvent);
+    on<HomeWishlistButtonNavigateEvent>(homeWishlistButtonNavigateEvent); // Action
+    on<HomeCartButtonNavigateEvent>(homeCartButtonNavigateEvent); // Action
     on<HomeProductWishlistButtonClickEvent>(homeProductWishlistButtonClickEvent);
     on<HomeProductCartButtonClickEvent>(homeProductCartButtonClickEvent);
+  }
+
+  FutureOr<void> homeInitialEvent(HomeInitialEvent event, Emitter<HomeState> emit) async {
+    //first method
+    emit(HomeLoadingState());
+    await Future.delayed(const Duration(seconds: 3));
+    try{
+      emit(HomeLoadedSuccessState(GroceryData.groceryProducts.map((e) =>
+          ProductDataModel(
+              id: e['id'],
+              name: e['name'],
+              description: e['description'],
+              price: e['price'],
+              imageUrl: e['imageUrl'])).toList()));
+    } catch(e){
+      emit(HomeErrorState());
+    }
   }
 
   FutureOr<void> homeWishlistButtonNavigateEvent(HomeWishlistButtonNavigateEvent event, Emitter<HomeState> emit) {

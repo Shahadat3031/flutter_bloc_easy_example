@@ -12,6 +12,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
+
+
   final HomeBloc homeBloc = HomeBloc();
   @override
   Widget build(BuildContext context) {
@@ -28,20 +31,41 @@ class _HomeScreenState extends State<HomeScreen> {
         }
       },
       builder: (context, state) {
-        return Scaffold(
-          appBar: AppBar(
-            actions: [
-              IconButton(icon: const Icon(Icons.favorite), onPressed: (){
-                homeBloc.add(HomeWishlistButtonNavigateEvent());
-              }),
-              IconButton(icon: const Icon(Icons.shopping_cart), onPressed: (){
-                homeBloc.add(HomeCartButtonNavigateEvent());
-              }),
-            ],
-            title: const Text('Grocery Home'),
-          ),
-        );
+        switch(state.runtimeType){
+          case HomeLoadingState:
+            return const Scaffold(
+              body: Center(child: CircularProgressIndicator(),),
+            );
+          case HomeLoadedSuccessState:
+            return Scaffold(
+              appBar: AppBar(
+                backgroundColor: Colors.teal,
+                actions: [
+                  IconButton(icon: const Icon(Icons.favorite), onPressed: (){
+                    homeBloc.add(HomeWishlistButtonNavigateEvent());
+                  }),
+                  IconButton(icon: const Icon(Icons.shopping_cart), onPressed: (){
+                    homeBloc.add(HomeCartButtonNavigateEvent());
+                  }),
+                ],
+                title: const Text('Grocery Home'),
+
+              ),
+            );
+          case HomeErrorState:
+            return const Scaffold(
+              body: Center(child: Text('Error!!!'),),
+            );
+          default:
+            return const SizedBox();
+        }
       },
     );
+  }
+
+  @override
+  void initState() {
+    homeBloc.add(HomeInitialEvent());
+    super.initState();
   }
 }
