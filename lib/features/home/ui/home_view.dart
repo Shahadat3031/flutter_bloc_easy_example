@@ -14,7 +14,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
 
-
   final HomeBloc homeBloc = HomeBloc();
 
   @override
@@ -42,9 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
               body: Center(child: CircularProgressIndicator(),),
             );
           case HomeLoadedSuccessState:
-
             final successState = state as HomeLoadedSuccessState;
-
             return Scaffold(
               appBar: AppBar(
                 backgroundColor: Colors.teal,

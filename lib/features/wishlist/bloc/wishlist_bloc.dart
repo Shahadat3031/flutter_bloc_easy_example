@@ -1,6 +1,5 @@
-import 'dart:async';
-
 import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc_easy_example/features/home/models/home_product_data_modle.dart';
 import 'package:meta/meta.dart';
 
 part 'wishlist_event.dart';
