@@ -29,6 +29,10 @@ class _HomeScreenState extends State<HomeScreen> {
           Navigator.push(context, MaterialPageRoute(builder: (context) => const WishList()));
         } else if (state is HomeNavigateToCartPageActionState) {
           Navigator.push(context, MaterialPageRoute(builder: (context) => const CartView()));
+        } else if(state is HomeProductStoreToCartActionState){
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Item Cart")));
+        }else if(state is HomeProductItemStoreToWishlistActionState){
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Item added to wishlist")));
         }
       },
       builder: (context, state) {

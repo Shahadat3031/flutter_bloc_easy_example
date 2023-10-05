@@ -34,18 +34,18 @@ class ProductTileWidget extends StatelessWidget {
               const SizedBox(height: 20,),
               Text(productDataModel.name,
                 style: textTextStyle(),),
-              Text(productDataModel.description, style: textTextStyle(),),
+              Text(productDataModel.description),
               Row(
                 children: [
-                  Text("Product Price ${productDataModel.price}",style: textTextStyle()),
+                  Text(productDataModel.price.toString(),style: textTextStyle()),
                   const Spacer(),
                   Row(
                     children: [
                       IconButton(icon: const Icon(Icons.favorite_border,), onPressed: () {
-                         homeBloc.add(HomeProductWishlistButtonClickEvent());
+                         homeBloc.add(HomeProductWishlistButtonClickEvent(productDataModel));
                       }),
                       IconButton(icon: const Icon(Icons.shopping_cart_outlined), onPressed: () {
-                        homeBloc.add(HomeProductCartButtonClickEvent());
+                        homeBloc.add(HomeProductCartButtonClickEvent(productDataModel));
                       }),
                     ],
                   )
